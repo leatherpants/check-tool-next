@@ -2,7 +2,7 @@
 
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 const scannerContainerId = "html5qr-code-full-region";
 

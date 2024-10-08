@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { ChecksTable, ChecksTableWithoutId, CompanyTable, ProverkachekaParams } from "./definitions";
+import { ChecksTable, CompanyTable, ProverkachekaParams } from "./definitions";
 
 export async function fetchAllChecks() {
   try {

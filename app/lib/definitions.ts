@@ -1,6 +1,6 @@
 export type ChecksTable = {
   id: string;
-  type: string;
+  company_type: string;
   date: Date;
   number: number;
   sum: number;
@@ -12,15 +12,12 @@ export type ChecksTable = {
 
 export type ChecksTableWithoutId = Omit<ChecksTable, 'id'>;
 
-export type CompanyTable = {
+export type CompaniesTable = {
   id: string;
   name: string;
   type: string;
 }
-export type Company = {
-  name: string;
-  type: string;
-}
+
 
 export type ProverkachekaParams = {
   fn: string;
@@ -29,4 +26,11 @@ export type ProverkachekaParams = {
   t: string;
   n: string;
   s: string;
+}
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
 }

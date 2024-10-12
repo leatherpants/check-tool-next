@@ -44,7 +44,7 @@ function generatePage(list: ChecksTable[], pageClass: string, hasTotal = false, 
       {list.map(item => {
         return (
           <div className="row" key={item.id}>
-            <div className="type">{item.type}</div>
+            <div className="type">{item.company_type}</div>
             <div className="date">{getDateStringInRussianFormat(item.date)}</div>
             <div className="number">Чек №{item.number}</div>
             <div className="company">{item.company_name}</div>

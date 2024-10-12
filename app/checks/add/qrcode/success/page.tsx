@@ -1,4 +1,4 @@
-import { createCheckFromService } from "@/app/lib/actions";
+import { addCheckFromService } from "@/app/lib/actions";
 import { ProverkachekaParams } from "@/app/lib/definitions";
 
 export default function Page({
@@ -7,7 +7,7 @@ export default function Page({
   searchParams: ProverkachekaParams
 }) {
 
-  const createCheckFromServiceBind = createCheckFromService.bind(null, searchParams);
+  const createCheckFromServiceBind = addCheckFromService.bind(null, searchParams);
 
   return (
     <form action={createCheckFromServiceBind}>

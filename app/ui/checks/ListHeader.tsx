@@ -1,14 +1,14 @@
 
 export default function ListHeader() {
   return (
-    <div className="flex gap-5">
-      <p>Type</p>
-      <p>Date</p>
-      <p>#</p>
-      <p>Company</p>
-      <p>Sum</p>
-      <p>nds20</p>
-      <p>nds10</p>
+    <div>
+      <div >Type</div>
+      <div >Date</div>
+      <div >#</div>
+      <div >Company</div>
+      <div >Sum</div>
+      <div >nds20</div>
+      <div >nds10</div>
     </div>
   )
 }

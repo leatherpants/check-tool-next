@@ -22,7 +22,7 @@ export default function Page() {
       // cache.current = decodedText;
       html5QrcodeScanner.pause();
 
-      router.replace(`/checks/create/qrcode/success?${decodedText}`);
+      router.replace(`/checks/add/qrcode/success?${decodedText}`);
 
       // dialog.current?.showModal();
 

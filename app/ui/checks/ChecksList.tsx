@@ -1,28 +1,22 @@
-import { ChecksTable } from "@/app/lib/definitions"
 import ListRow from "./ListRow";
-import ListHeader from "./ListHeader";
+import { fetchFilteredChecks } from "@/app/lib/data";
 
 interface ChecksListProps {
-  checks: ChecksTable[];
+  query: string;
+  page: string
 }
 
-export default function ChecksList({
-  checks
+export default async function ChecksList({
+  query, page
 }: ChecksListProps) {
+  let currentPage = 1;
+  if (page && Number.parseInt(page) > 1) currentPage = Number.parseInt(page);
+  const checks = await fetchFilteredChecks(query, currentPage);
+
   return (
-    <div className="flex flex-col">
-      <ListHeader />
-      {checks.map(check => (
-        <ListRow
-          key={check.id}
-          type={check.type}
-          date={check.date}
-          number={check.number}
-          company={check.company_name}
-          sum={check.sum}
-          nds20={check.nds20}
-          nds10={check.nds10} />
-      ))}
+    <div className="rounded-xl">
+      {/* <ListHeader /> */}
+      {checks.map(check => <ListRow key={check.id} check={check} />)}
     </div>
   )
 }

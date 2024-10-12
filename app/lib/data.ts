@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { ChecksTable, CompanyTable, ProverkachekaParams } from "./definitions";
+import { ChecksTable, CompaniesTable, ProverkachekaParams } from "./definitions";
 
 export async function fetchAllChecks() {
   try {
@@ -11,7 +11,7 @@ export async function fetchAllChecks() {
   }
 }
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 6;
 
 export async function fetchFilteredChecks(
   query: string,
@@ -19,60 +19,117 @@ export async function fetchFilteredChecks(
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  try {
-    const checks = await sql<ChecksTable>`
-    SELECT *
-    FROM checks
-    WHERE
-        checks.type ILIKE ${`%${query}%`} OR
-        checks.date::text ILIKE ${`%${query}%`} OR
-        checks.number::text ILIKE ${`%${query}%`} OR
-        checks.sum::text ILIKE ${`%${query}%`} OR
-        checks.nds10::text ILIKE ${`%${query}%`} OR
-        checks.nds20::text ILIKE ${`%${query}%`} OR
-        checks.company_name ILIKE ${`%${query}%`}
-    ORDER BY checks.date DESC
-    LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-    `;
-    return checks.rows;
-  } catch (error) {
-    console.error('Database Error: ', error);
-    throw new Error('Failed to fetch check data.');
+  if (query) {
+    try {
+      const checks = await sql<ChecksTable>`
+      SELECT *
+      FROM checks
+      WHERE
+          checks.type ILIKE ${`%${query}%`} OR
+          checks.date::text ILIKE ${`%${query}%`} OR
+          checks.number::text ILIKE ${`%${query}%`} OR
+          checks.sum::text ILIKE ${`%${query}%`} OR
+          checks.nds10::text ILIKE ${`%${query}%`} OR
+          checks.nds20::text ILIKE ${`%${query}%`} OR
+          checks.company_name ILIKE ${`%${query}%`}
+      ORDER BY checks.date DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+      `;
+      return checks.rows;
+    } catch (error) {
+      console.error('Database Error: ', error);
+      throw new Error('Failed to fetch check data.');
+    }
+  } else {
+    try {
+      const checks = await sql<ChecksTable>`
+      SELECT *
+      FROM checks
+      ORDER BY checks.date DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+      `;
+      return checks.rows;
+    } catch (error) {
+      console.error('Database Error: ', error);
+      throw new Error('Failed to fetch check data.');
+    }
   }
+
 }
 
 export async function fetchChecksPages(query: string) {
+  if (query) {
+    try {
+      const count = await sql`
+      SELECT COUNT(*)
+      FROM checks
+      WHERE
+          checks.type ILIKE ${`%${query}%`} OR
+          checks.date::text ILIKE ${`%${query}%`} OR
+          checks.number::text ILIKE ${`%${query}%`} OR
+          checks.sum::text ILIKE ${`%${query}%`} OR
+          checks.nds10::text ILIKE ${`%${query}%`} OR
+          checks.nds20::text ILIKE ${`%${query}%`} OR
+          checks.company_name ILIKE ${`%${query}%`}
+      `;
+      const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+      if (totalPages < 1) return 1;
+      return totalPages;
+    } catch (error) {
+      console.error('Database Error: ', error);
+      throw new Error('Failed to fetch page number.');
+    }
+  } else {
+    try {
+      const count = await sql`
+      SELECT COUNT(*)
+      FROM checks
+      `;
+      const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+      if (totalPages < 1) return 1;
+      return totalPages;
+    } catch (error) {
+      console.error('Database Error: ', error);
+      throw new Error('Failed to fetch page number.');
+    }
+  }
+}
+
+export async function fetchCheckById(id: string) {
   try {
-    const count = await sql`
-    SELECT COUNT(*)
-    FROM checks
-    JOIN companies ON checks.company_id = companies.id
-    WHERE
-        checks.type ILIKE ${`%${query}%`} OR
-        checks.data::text ILIKE ${`%${query}%`} OR
-        checks.number::text ILIKE ${`%${query}%`} OR
-        checks.sum::text ILIKE ${`%${query}%`} OR
-        checks.nds10::text ILIKE ${`%${query}%`} OR
-        checks.nds20::text ILIKE ${`%${query}%`} OR
-        companies.name ILIKE ${`%${query}%`}
+    const checks = await sql<ChecksTable>`
+    SELECT * FROM checks
+    WHERE id = ${id}
     `;
-    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-    return totalPages;
+    return checks.rows[0];
   } catch (error) {
     console.error('Database Error: ', error);
-    throw new Error('Failed to fetch total number of checks.');
+    throw new Error('Failed to fetch check.');
   }
 }
 
 export async function fetchCompanies() {
   try {
-    const companies = await sql<CompanyTable>`
+    const companies = await sql<CompaniesTable>`
     SELECT * FROM companies
     `;
     return companies.rows;
   } catch (error) {
     console.error('Database Error: ', error);
     throw new Error('Failed to fetch companies.');
+  }
+}
+
+export async function fetchCompanyById(id: string) {
+  try {
+    const companies = await sql<CompaniesTable>`
+    SELECT * FROM companies
+    WHERE id = ${id}
+    `;
+    return companies.rows[0];
+  } catch (error) {
+    console.error('Database Error: ', error);
+    throw new Error('Failed to fetch company.');
   }
 }
 
@@ -110,7 +167,7 @@ export async function fetchCheckFromService({
   const company_id = company?.id ?? '';
   return {
     id: '',
-    type,
+    company_type: type,
     date: new Date(data.data.json.dateTime),
     number: data.data.json.requestNumber,
     company_id,

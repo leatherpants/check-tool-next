@@ -5,3 +5,15 @@ export function getDateStringInRussianFormat(date: Date): string {
   const monthString = month < 10 ? '0' + month : month;
   return `${dayString}.${monthString}.${date.getFullYear()}`;
 }
+
+export function range(from: number, to: number): number[] {
+  const result: number[] = [];
+  for (let i = from; i < to; i++) {
+    result.push(i)
+  }
+  return result;
+}
+
+export function getDateString(date: Date): string {
+  return date.toISOString().split('T')[0];
+}

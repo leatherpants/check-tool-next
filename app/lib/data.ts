@@ -133,32 +133,9 @@ export async function fetchCompanyById(id: string) {
   }
 }
 
-export async function fetchCheckFromService({
-  fn, i, fp, t, n, s
-}: ProverkachekaParams): Promise<ChecksTable> {
+export async function fetchCheckFromService(params: ProverkachekaParams): Promise<ChecksTable> {
 
-  const TOKEN = process.env.CHECK_TOKEN;
-  const encodedParams = new URLSearchParams();
-  encodedParams.append('fn', fn);
-  encodedParams.append('fd', i);
-  encodedParams.append('fp', fp);
-  encodedParams.append('t', t);
-  encodedParams.append('n', n);
-  encodedParams.append('s', s);
-  // encodedParams.append("qrraw", "t=20200924T1837&s=349.93&fn=9282440300682838&i=46534&fp=1273019065&n=1");
-  encodedParams.append("token", TOKEN ?? '');
-
-  const options = {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-    },
-    body: encodedParams
-  };
-
-  const res = await fetch('https://proverkacheka.com/api/v1/check/get', options);
-  const data = await res.json();
-  if (data.code !== 1) throw new Error();
+  const data = await fetchRawFromService(params);
 
   const companies = await fetchCompanies();
   const company_name = data.data.json.user;
@@ -176,4 +153,31 @@ export async function fetchCheckFromService({
     nds20: data.data.json.nds18 ?? 0,
     nds10: data.data.json.nds10 ?? 0,
   }
+}
+
+export async function fetchRawFromService({
+  fn, i, fp, t, n, s
+}: ProverkachekaParams) {
+  const TOKEN = process.env.CHECK_TOKEN;
+  const encodedParams = new URLSearchParams();
+  encodedParams.append('fn', fn);
+  encodedParams.append('fd', i);
+  encodedParams.append('fp', fp);
+  encodedParams.append('t', t);
+  encodedParams.append('n', n);
+  encodedParams.append('s', s);
+  encodedParams.append("token", TOKEN ?? '');
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    body: encodedParams
+  };
+
+  const res = await fetch('https://proverkacheka.com/api/v1/check/get', options);
+  const data = await res.json();
+  if (data.code !== 1) throw new Error();
+  return data;
 }

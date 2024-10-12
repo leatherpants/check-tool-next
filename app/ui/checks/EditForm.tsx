@@ -12,32 +12,10 @@ export default function EditForm({
   const editCheckWithId = editCheck.bind(null, id);
 
   return (<>
-    {/* <form action={editCheckWithId}>
-
-      <label htmlFor="date">Date:</label>
-      <input type="date" name="date" id="date" defaultValue={date.toISOString().split('T')[0]} required />
-      <label htmlFor="number">Number:</label>
-      <input type="number" name="number" id="number" defaultValue={number} required />
-      <label htmlFor="sum">Sum:</label>
-      <input type="number" name="sum" id="sum" defaultValue={sum} required />
-      <label htmlFor="nds10">nds10:</label>
-      <input type="number" name="nds10" id="nds10" defaultValue={nds10} required />
-      <label htmlFor="nds20">nds20:</label>
-      <input type="number" name="nds20" id="nds20" defaultValue={nds20} required />
-      <label htmlFor="company_name">Company:</label>
-      <select name="company_id" id="company_id" defaultValue={company_id} required>
-        {companies.map(company => <option value={company.id} key={company.id}>{company.name}</option>)}
-      </select>
-      <button type="submit" className="mt-3 py-1 px-2 self-center rounded-lg border text-white bg-primary-500 border-primary-500 hover:bg-primary-600 active:bg-primary-700">Save</button>
-      <Link href='/checks/'
-        className="border-2 rounded-xl px-2 py-1 mb-5 block self-start
-        border-gray-500 text-gray-500 hover:bg-gray-400 hover:text-white active:bg-gray-500" >
-        Cancel
-      </Link>
-    </form> */}
-
     <form action={editCheckWithId}
-      className="grid grid-cols-1 gap-5 text-lg p-5"
+      className="grid grid-cols-1 gap-5 text-lg p-5
+      md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
+      "
     >
       <div className="flex flex-col">
         <label className="pl-3 font-bold"
@@ -79,9 +57,11 @@ export default function EditForm({
       </div>
       <div className="flex justify-center gap-5 mt-5">
         <button type="submit" className="border-2 rounded-xl px-2 py-1 block 
-        border-primary-500 text-white bg-primary-500 hover:bg-primary-600 active:bg-primary-700">Save</button>
+        border-primary-500 text-white bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
+          Save
+        </button>
         <Link href='/checks/'
-          className="border-2 rounded-xl px-2 py-1  block 
+          className="border-2 rounded-xl px-2 py-1 block leading-10
         border-gray-500 text-gray-500 hover:bg-gray-400 hover:text-white active:bg-gray-500" >
           Cancel
         </Link>

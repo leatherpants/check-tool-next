@@ -7,7 +7,7 @@ export default function ListRow({ company: { id, name, type } }: { company: Comp
 
   return (
     <div className="grid grid-cols-2 gap-3 p-3 justify-center items-center 
-    first:rounded-t-xl last:rounded-b-xl
+    first:rounded-t-xl last:rounded-b-xl md:rounded-xl
     odd:bg-gray-100 even:bg-gray-50 hover:bg-primary-100">
 
       <div>

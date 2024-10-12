@@ -4,10 +4,12 @@ import ChecksList from "../ui/checks/ChecksList";
 import Pagination from "../ui/checks/Pagination";
 
 export default async function Page({
-  searchParams: { query, page },
+  searchParams,
 }: {
   searchParams: { query: string, page: string }
 }) {
+
+  const { query, page } = await searchParams;
 
   const pages = await fetchChecksPages(query);
 
@@ -29,7 +31,7 @@ export default async function Page({
       <div className="">
         <ChecksList query={query} page={page} />
       </div>
-      <div className="mt-3">
+      <div className="mt-3 mb-24">
         <Pagination pages={pages} />
       </div>
     </div >

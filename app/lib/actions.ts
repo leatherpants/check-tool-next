@@ -214,3 +214,24 @@ export async function editCompany(company_id: string, formData: FormData) {
   revalidatePath('/companies');
   redirect('/companies');
 }
+
+export async function addCompanyFromService(params: ProverkachekaParams) {
+
+  const { company_type, date, number, company_id, company_name, sum, nds10, nds20 } =
+    await fetchCheckFromService(params);
+
+  const dateString = date.toISOString().split('T')[0];
+
+  // console.log(company_id);
+  try {
+    await sql`
+      INSERT INTO checks (company_type, date, number, company_id, company_name, sum, nds10, nds20)
+      VALUES (${company_type}, ${dateString}, ${number}, ${company_id}, ${company_name}, ${sum}, ${nds10}, ${nds20})
+    `;
+  } catch (error) {
+    console.error('Database Error: ', error);
+    throw new Error('Database Error: Failed to Create Check.');
+  }
+
+  redirect('/checks/add/qrcode');
+}

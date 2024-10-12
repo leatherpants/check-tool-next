@@ -7,8 +7,9 @@ export default async function Page({
 }: {
   params: { id: string }
 }) {
+  const { id } = await params;
   const [check, companies] = await Promise.all([
-    fetchCheckById(params.id),
+    fetchCheckById(id),
     fetchCompanies()
   ]);
 

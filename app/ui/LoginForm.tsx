@@ -11,7 +11,7 @@ export default function LoginForm() {
   );
 
   return (
-    <form action={formAction} className="space-y-3">
+    <form action={formAction} className="space-y-3 flex flex-col">
       <div className="w-full">
         <div>
           <label
@@ -51,7 +51,8 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
-      <button type="submit">Log In</button>
+      <button className='border-2 rounded-xl px-2 py-1 block self-center
+        border-primary-500 text-white bg-primary-500 hover:bg-primary-600 active:bg-primary-700' type="submit">Log In</button>
       <div
         className="flex h-8 items-end space-x-1"
         aria-live="polite"

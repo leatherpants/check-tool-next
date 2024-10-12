@@ -1,14 +1,15 @@
 import { addCompany } from "@/app/lib/actions";
 import Link from "next/link";
 
-export default function AddForm() {
+export default function AddForm({ company_name }: { company_name: string }) {
   return (
     <form action={addCompany}
       className="grid grid-cols-1 gap-5 text-lg p-5"
     >
       <div className="flex flex-col">
         <label htmlFor="name" className="pl-3 font-bold">Company Name:</label>
-        <input className="p-2 rounded-xl border focus:outline-none focus:ring" type="text" name="name" id="name" required />
+        <input className="p-2 rounded-xl border focus:outline-none focus:ring" type="text" name="name" id="name"
+          defaultValue={company_name} required />
       </div>
       <div className="flex flex-col">
         <label htmlFor="type" className="pl-3 font-bold">Type:</label>

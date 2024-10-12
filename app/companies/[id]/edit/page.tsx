@@ -5,7 +5,9 @@ export default async function Page({ params }: {
   params: { id: string }
 }) {
 
-  const company = await fetchCompanyById(params.id);
+  const { id } = await params;
+
+  const company = await fetchCompanyById(id);
 
   return (<>
     <div className="p-10 w-96 mx-auto">

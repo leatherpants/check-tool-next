@@ -13,7 +13,7 @@ export default function Page() {
     const html5QrcodeScanner = new Html5QrcodeScanner(scannerContainerId, { fps: 10, qrbox: 250 }, false);
     async function qrCodeSuccessCallback(decodedText: string) {
       html5QrcodeScanner.pause();
-      router.replace(`/checks/add/qrcode/success?${decodedText}`);
+      router.replace(`/companies/add/qrcode/success?${decodedText}`);
     }
 
     function qrCodeErrorCallback() { }

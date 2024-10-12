@@ -139,7 +139,7 @@ export async function fetchCheckFromService(params: ProverkachekaParams): Promis
 
   const companies = await fetchCompanies();
   const company_name = data.data.json.user;
-  const company = companies.find(company => company.name === company_name);
+  const company = companies.find(company => company.name.toLowerCase() === String(company_name).toLowerCase());
   const type = company?.type ?? 'Продукты';
   const company_id = company?.id ?? '';
   return {

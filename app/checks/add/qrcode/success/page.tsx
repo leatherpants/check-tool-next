@@ -1,13 +1,11 @@
+import { PageProps } from "@/.next/types/app/checks/add/qrcode/success/page";
 import { addCheckFromService } from "@/app/lib/actions";
-import { ProverkachekaParams } from "@/app/lib/definitions";
 
-export default function Page({
-  searchParams
-}: {
-  searchParams: ProverkachekaParams
-}) {
+export default async function Page({ searchParams }: PageProps) {
 
-  const createCheckFromServiceBind = addCheckFromService.bind(null, searchParams);
+  const params = await searchParams;
+
+  const createCheckFromServiceBind = addCheckFromService.bind(null, params);
 
   return (
     <form action={createCheckFromServiceBind}>

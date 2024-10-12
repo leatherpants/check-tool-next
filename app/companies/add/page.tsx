@@ -1,7 +1,7 @@
+import { PageProps } from "@/.next/types/app/companies/add/page";
 import AddForm from "@/app/ui/companies/AddForm";
-import { SearchParams } from "next/dist/server/request/search-params";
 
-export default async function Page({ searchParams }: { searchParams: SearchParams }) {
+export default async function Page({ searchParams }: PageProps) {
   const { name } = await searchParams;
   return (
     <div className="p-10 mx-auto w-96">

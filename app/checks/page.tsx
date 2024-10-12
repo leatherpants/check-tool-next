@@ -2,12 +2,9 @@ import Link from "next/link";
 import { fetchChecksPages } from "../lib/data"
 import ChecksList from "../ui/checks/ChecksList";
 import Pagination from "../ui/checks/Pagination";
+import { PageProps } from "@/.next/types/app/checks/page";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { query: string, page: string }
-}) {
+export default async function Page({ searchParams }: PageProps) {
 
   const { query, page } = await searchParams;
 

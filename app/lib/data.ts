@@ -58,9 +58,6 @@ export async function fetchFilteredChecks(
 }
 
 export async function fetchChecksPages(query: string) {
-  console.log('============================================')
-  console.log(query);
-  console.log('============================================')
   if (query) {
     try {
       const count = await sql`

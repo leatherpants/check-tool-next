@@ -14,6 +14,10 @@ export function range(from: number, to: number): number[] {
   return result;
 }
 
+export function positiveRange(from: number, to: number): number[] {
+  return range(from < 1 ? 1 : from, to);
+}
+
 export function getDateString(date: Date): string {
   return date.toISOString().split('T')[0];
 }

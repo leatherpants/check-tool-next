@@ -18,8 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en" >
       <body>
-        <div className="lg:flex">
-          <header className="bg-primary-500 lg:h-dvh">
+        <div className="lg:flex items-stretch">
+          <header className="bg-primary-500">
             <h1 className="text-2xl text-nowrap py-5 text-center text-primary-50 border-b-primary-50 border-b-2
             lg:px-5
             ">Check Tool</h1>

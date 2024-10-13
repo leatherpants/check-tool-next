@@ -1,5 +1,6 @@
 import { PageProps } from "@/.next/types/app/checks/add/qrcode/success/page";
 import { addCheckFromService } from "@/app/lib/actions";
+import { PrimaryButton } from "@/app/ui/PrimaryButton";
 
 export default async function Page({ searchParams }: PageProps) {
 
@@ -11,10 +12,7 @@ export default async function Page({ searchParams }: PageProps) {
 
     <div className="grid justify-center items-center">
       <form action={createCheckFromServiceBind}>
-        <button
-          className="border-2 rounded-xl px-2 py-1 block 
-      border-primary-500 text-white bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
-          type="submit">Save</button>
+        <PrimaryButton type="submit">Save</PrimaryButton>
       </form>
     </div>
 

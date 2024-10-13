@@ -2,6 +2,8 @@ import { deleteCheck } from "@/app/lib/actions";
 import { ChecksTable } from "@/app/lib/definitions";
 import { getDateStringInRussianFormat } from "@/app/lib/utils";
 import Link from "next/link";
+import { PrimaryButton } from "../PrimaryButton";
+import { DangerButton } from "../DangerButton";
 
 interface ListItemProps {
   check: ChecksTable;
@@ -13,7 +15,7 @@ export default function ListRow({ check: {
   const deleteCheckWithId = deleteCheck.bind(null, id);
 
   return (
-    <div className="grid grid-cols-3 gap-1 p-3 justify-center items-center 
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3 justify-center items-center md:max-w-96
     first:rounded-t-xl last:rounded-b-xl md:rounded-xl
     odd:bg-gray-100 even:bg-gray-50 hover:bg-primary-100">
       <div>
@@ -44,13 +46,12 @@ export default function ListRow({ check: {
         <p className="font-bold">Company:</p>
         <div >{company_name}</div>
       </div>
-      <div className="col-span-3 place-self-end flex flex-row space-x-2">
-        <Link href={`/checks/${id}/edit`}
-          className="border-2 rounded-xl px-2 py-1
-         border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white active:bg-primary-700" >Edit</Link>
+      <div className="col-span-full place-self-end flex flex-row space-x-2">
+        <PrimaryButton>
+          <Link href={`/checks/${id}/edit`}>Edit</Link>
+        </PrimaryButton>
         <form action={deleteCheckWithId} >
-          <button className="border-2 rounded-xl px-2 py-1
-           border-red-500 text-red-500 hover:bg-red-500 hover:text-white active:bg-red-700" type="submit">Delete</button>
+          <DangerButton type="submit">Delete</DangerButton>
         </form>
       </div>
     </div>

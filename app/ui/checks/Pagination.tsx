@@ -1,9 +1,8 @@
 'use client';
 
-import { range } from "@/app/lib/utils";
-import Link from "next/link";
+import { positiveRange } from "@/app/lib/utils";
 import { usePathname, useSearchParams } from "next/navigation";
-import clsx from "clsx";
+import PageButton from "../PageButton";
 
 interface PaginationProps {
   pages: number;
@@ -15,26 +14,28 @@ export default function Pagination({ pages }: PaginationProps) {
   const currentPage = Number.parseInt(searchParams.get('page') ?? '1');
   const setSearchParams = new URLSearchParams(searchParams);
 
+  setSearchParams.set('page', '1');
+  const FirstPageBtn = <PageButton text='<<' isFirst={true} href={`${path}/?${setSearchParams.toString()}`} />
+  setSearchParams.set('page', pages.toString());
+  const LastPageBtn = <PageButton text='>>' isLast={true} href={`${path}/?${setSearchParams.toString()}`} />
+  setSearchParams.set('page', (currentPage - 1).toString());
+  const PrevPageBtn = <PageButton text='<' href={`${path}/?${setSearchParams.toString()}`} />
+  setSearchParams.set('page', (currentPage + 1).toString());
+  const NextPageBtn = <PageButton text='>' href={`${path}/?${setSearchParams.toString()}`} />
+
   return (
     <div className="flex flex-row justify-center">
-      {range(1, pages + 1).map((page => {
+      {FirstPageBtn}
+      {currentPage > 1 && PrevPageBtn}
+      {positiveRange(currentPage - 3, currentPage + 4).map((page => {
         setSearchParams.set('page', page.toString());
         const isCurrentPage = page === currentPage;
         return (
-          <Link className={`
-            px-3 py-2 border first:rounded-l-lg last:rounded-r-lg
-          ${clsx({
-            'border-primary-500 bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700': isCurrentPage,
-            'border-primary-500 text-primary-500 hover:bg-primary-600 hover:text-white active:bg-primary-700': !isCurrentPage,
-          })}
-          `}
-            key={`page+${page}`}
-            href={`${path}/?${setSearchParams.toString()}`}
-          >
-            {page}
-          </Link>
+          <PageButton key={`page+${page}`} text={page.toString()} isCurrent={isCurrentPage} href={`${path}/?${setSearchParams.toString()}`} />
         )
       }))}
+      {currentPage < pages && NextPageBtn}
+      {LastPageBtn}
     </div>
   )
 }

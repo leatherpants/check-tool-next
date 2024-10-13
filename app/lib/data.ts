@@ -25,7 +25,7 @@ export async function fetchFilteredChecks(
       SELECT *
       FROM checks
       WHERE
-          checks.type ILIKE ${`%${query}%`} OR
+          checks.company_type ILIKE ${`%${query}%`} OR
           checks.date::text ILIKE ${`%${query}%`} OR
           checks.number::text ILIKE ${`%${query}%`} OR
           checks.sum::text ILIKE ${`%${query}%`} OR
@@ -58,13 +58,16 @@ export async function fetchFilteredChecks(
 }
 
 export async function fetchChecksPages(query: string) {
+  console.log('============================================')
+  console.log(query);
+  console.log('============================================')
   if (query) {
     try {
       const count = await sql`
       SELECT COUNT(*)
       FROM checks
       WHERE
-          checks.type ILIKE ${`%${query}%`} OR
+          checks.company_type ILIKE ${`%${query}%`} OR
           checks.date::text ILIKE ${`%${query}%`} OR
           checks.number::text ILIKE ${`%${query}%`} OR
           checks.sum::text ILIKE ${`%${query}%`} OR

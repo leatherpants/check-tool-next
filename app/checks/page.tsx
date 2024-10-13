@@ -3,6 +3,7 @@ import { fetchChecksPages } from "../lib/data"
 import ChecksList from "../ui/checks/ChecksList";
 import Pagination from "../ui/checks/Pagination";
 import { PageProps } from "@/.next/types/app/checks/page";
+import Search from "../ui/checks/Search";
 
 export default async function Page({ searchParams }: PageProps) {
 
@@ -12,6 +13,9 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (<>
     <div className="flex flex-col p-5">
+      <div className="text-center my-5">
+        <Search />
+      </div>
       <div className="flex gap-5 justify-center">
         <Link href='/checks/add/qrcode'
           className="border-2 rounded-xl px-3 py-2 mb-5 block 

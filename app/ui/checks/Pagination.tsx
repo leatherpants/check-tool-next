@@ -25,7 +25,7 @@ export default function Pagination({ pages }: PaginationProps) {
             px-3 py-2 border first:rounded-l-lg last:rounded-r-lg
           ${clsx({
             'border-primary-500 bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700': isCurrentPage,
-            'border-primary-500 text-primary-500 hover:bg-primary-600 active:bg-primary-700': !isCurrentPage,
+            'border-primary-500 text-primary-500 hover:bg-primary-600 hover:text-white active:bg-primary-700': !isCurrentPage,
           })}
           `}
             key={`page+${page}`}

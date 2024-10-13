@@ -1,7 +1,7 @@
 import Link from "next/link";
-import CompaniesList from "../ui/companies/CompaniesList";
-import { PrimaryButton } from "../ui/PrimaryButton";
-import { SecondaryButton } from "../ui/SecondaryButton";
+import CompaniesList from "@/app/ui/companies/CompaniesList";
+import { PrimaryButton } from "@/app/ui/PrimaryButton";
+import { SecondaryButton } from "@/app/ui/SecondaryButton";
 
 export default function Page() {
 

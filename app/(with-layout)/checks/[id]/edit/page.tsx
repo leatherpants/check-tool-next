@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/checks/[id]/edit/page";
+import { PageProps } from "@/.next/types/app/(with-layout)/checks/[id]/edit/page";
 import { fetchCheckById, fetchCompanies } from "@/app/lib/data"
 import EditForm from "@/app/ui/checks/EditForm";
 

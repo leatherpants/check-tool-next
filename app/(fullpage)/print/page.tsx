@@ -1,7 +1,7 @@
 import { fetchAllChecks } from '@/app/lib/data';
 import { ChecksTable } from '@/app/lib/definitions';
 import { getDateStringInRussianFormat } from '@/app/lib/utils';
-import '@/app/ui/checks/print.scss';
+import clsx from 'clsx';
 
 export default async function Page() {
 
@@ -39,20 +39,31 @@ export default async function Page() {
 }
 
 function generatePage(list: ChecksTable[], pageClass: string, hasTotal = false, totalSum = 0, totalNds = 0) {
-  return (<div className={pageClass + ' page'}>
-    <div className="container">
+  return (<div className={clsx({
+    pageClass: true,
+    'font-print bg-white block my-0 mx-auto mb-[0.5cm] shadow-xl w-[29.7cm] h-[21cm] bg-center bg-contain relative': true,
+    "bg-[url('/bg2.png')]": pageClass === 'another-page',
+    "bg-[url('/bg1.png')]": pageClass === 'first-page'
+  })}>
+    <div className={
+      clsx({
+        "absolute left-[1.2cm] right-[1.2cm] flex flex-col gap-[1.57cm]": true,
+        'top-[9.35cm]': pageClass === 'first-page',
+        'top-[1.5cm]': pageClass === 'another-page'
+      })
+    }>
       {list.map(item => {
         return (
-          <div className="row" key={item.id}>
-            <div className="type">{item.company_type}</div>
-            <div className="date">{getDateStringInRussianFormat(item.date)}</div>
-            <div className="number">Чек №{item.number}</div>
-            <div className="company">{item.company_name}</div>
-            <div className="sum">
-              <div className="price">
+          <div className="relative text-[10pt]" key={item.id}>
+            <div className="absolute left-[0.3cm] text-[15pt]">{item.company_type}</div>
+            <div className="absolute left-[7cm]">{getDateStringInRussianFormat(item.date)}</div>
+            <div className="absolute left-[10.5cm] text-[12pt]">Чек №{item.number}</div>
+            <div className="absolute left-[16.3cm] w-[5.3cm] text-[12pt] leading-[12pt] overflow-hidden break-words">{item.company_name}</div>
+            <div className="absolute top-[-0.02cm] left-[27.3cm] tracking-[0.38cm] font-mono">
+              <div className="absolute right-[0.1cm] text-end">
                 {(item.sum / 100).toFixed(2)}
               </div>
-              <div className="nds">
+              <div className="absolute right-[0.15cm] top-[0.65cm]">
                 {(((item.nds10 ?? 0) + (item.nds20 ?? 0)) / 100).toFixed(2)}
               </div>
             </div>
@@ -60,13 +71,13 @@ function generatePage(list: ChecksTable[], pageClass: string, hasTotal = false, 
         );
       })}
       {hasTotal && (
-        <div className="row">
-          <div className="type">{'Итоги'}</div>
-          <div className="sum">
-            <div className="price">
+        <div className="relative text-[10pt]">
+          <div className="absolute left-[0.3cm] text-[15pt]">{'Итоги'}</div>
+          <div className="absolute top-[-0.02cm] left-[27.3cm] tracking-[0.38cm] font-mono">
+            <div className="absolute right-[0.1cm] text-end">
               {(totalSum / 100).toFixed(2)}
             </div>
-            <div className="nds">
+            <div className="absolute right-[0.15cm] top-[0.65cm]">
               {(totalNds / 100).toFixed(2)}
             </div>
           </div>

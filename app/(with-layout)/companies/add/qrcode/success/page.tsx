@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/companies/add/qrcode/success/page";
+import { PageProps } from "@/.next/types/app/(with-layout)/companies/add/qrcode/success/page";
 import { fetchRawFromService } from "@/app/lib/data";
 import { PrimaryButton } from "@/app/ui/PrimaryButton";
 import Link from "next/link";

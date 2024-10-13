@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/companies/[id]/edit/page";
+import { PageProps } from "@/.next/types/app/(with-layout)/companies/[id]/edit/page";
 import { fetchCompanyById } from "@/app/lib/data"
 import EditForm from "@/app/ui/companies/EditForm"
 

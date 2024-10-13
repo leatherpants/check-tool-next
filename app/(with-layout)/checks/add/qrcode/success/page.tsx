@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/checks/add/qrcode/success/page";
+import { PageProps } from "@/.next/types/app/(with-layout)/checks/add/qrcode/success/page";
 import { addCheckFromService } from "@/app/lib/actions";
 import { PrimaryButton } from "@/app/ui/PrimaryButton";
 

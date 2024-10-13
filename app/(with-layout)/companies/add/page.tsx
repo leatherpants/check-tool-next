@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/companies/add/page";
+import { PageProps } from "@/.next/types/app/(with-layout)/companies/add/page";
 import AddForm from "@/app/ui/companies/AddForm";
 
 export default async function Page({ searchParams }: PageProps) {

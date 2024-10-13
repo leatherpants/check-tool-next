@@ -13,9 +13,9 @@ export default async function ChecksList({
   if (page && Number.parseInt(page) > 1) currentPage = Number.parseInt(page);
   const checks = await fetchFilteredChecks(query, currentPage);
 
-  return (
+  return (<>
     <div className="rounded-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5">
       {checks.map(check => <ListRow key={check.id} check={check} />)}
     </div>
-  )
+  </>)
 }

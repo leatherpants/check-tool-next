@@ -58,6 +58,13 @@ export async function fetchFilteredChecks(
 }
 
 export async function fetchChecksPages(query: string) {
+  const count = await fetchChecksCount(query);
+  const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
+  if (totalPages < 1) return 1;
+  return totalPages;
+}
+
+export async function fetchChecksCount(query: string) {
   if (query) {
     try {
       const count = await sql`
@@ -72,9 +79,7 @@ export async function fetchChecksPages(query: string) {
           checks.nds20::text ILIKE ${`%${query}%`} OR
           checks.company_name ILIKE ${`%${query}%`}
       `;
-      const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-      if (totalPages < 1) return 1;
-      return totalPages;
+      return Number(count.rows[0].count);
     } catch (error) {
       console.error('Database Error: ', error);
       throw new Error('Failed to fetch page number.');
@@ -85,9 +90,7 @@ export async function fetchChecksPages(query: string) {
       SELECT COUNT(*)
       FROM checks
       `;
-      const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-      if (totalPages < 1) return 1;
-      return totalPages;
+      return Number(count.rows[0].count);
     } catch (error) {
       console.error('Database Error: ', error);
       throw new Error('Failed to fetch page number.');

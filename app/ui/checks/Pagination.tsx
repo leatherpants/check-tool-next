@@ -1,6 +1,6 @@
 'use client';
 
-import { positiveRange } from "@/app/lib/utils";
+import { range } from "@/app/lib/utils";
 import { usePathname, useSearchParams } from "next/navigation";
 import PageButton from "../PageButton";
 
@@ -23,11 +23,14 @@ export default function Pagination({ pages }: PaginationProps) {
   setSearchParams.set('page', (currentPage + 1).toString());
   const NextPageBtn = <PageButton text='>' href={`${path}/?${setSearchParams.toString()}`} />
 
+  const from = currentPage - 2 < 1 ? 1 : currentPage - 2;
+  const to = currentPage + 2 > pages ? pages + 1 : currentPage + 3;
+
   return (
     <div className="flex flex-row justify-center">
       {FirstPageBtn}
       {currentPage > 1 && PrevPageBtn}
-      {positiveRange(currentPage - 3, currentPage + 4).map((page => {
+      {range(from, to).map((page => {
         setSearchParams.set('page', page.toString());
         const isCurrentPage = page === currentPage;
         return (

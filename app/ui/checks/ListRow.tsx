@@ -17,7 +17,7 @@ export default function ListRow({ check: {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3 justify-center items-center md:max-w-96
     first:rounded-t-xl last:rounded-b-xl md:rounded-xl
-    odd:bg-gray-100 even:bg-gray-50 hover:bg-primary-100">
+    odd:bg-gray-100 even:bg-gray-50 dark:odd:bg-gray-800 dark:even:bg-gray-700 hover:bg-primary-100 dark:hover:bg-primary-950">
       <div>
         <p className="font-bold">Type:</p>
         <div className="">{company_type}</div>

@@ -3,7 +3,7 @@ import { ChecksTable, CompaniesTable, ProverkachekaParams } from "./definitions"
 
 export async function fetchAllChecks() {
   try {
-    const checks = await sql<ChecksTable>`SELECT * FROM checks`;
+    const checks = await sql<ChecksTable>`SELECT * FROM checks ORDER BY company_type, date`;
     return checks.rows;
   } catch (error) {
     console.error('Database Error: ', error);

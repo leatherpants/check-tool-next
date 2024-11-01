@@ -2,8 +2,11 @@ import { fetchAllChecks } from '@/app/lib/data';
 import { ChecksTable } from '@/app/lib/definitions';
 import { getDateStringInRussianFormat } from '@/app/lib/utils';
 import clsx from 'clsx';
+import { cookies } from 'next/headers';
 
 export default async function Page() {
+
+  await cookies();
 
   const checklist = await fetchAllChecks();
 

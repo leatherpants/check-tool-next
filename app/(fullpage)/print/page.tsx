@@ -44,7 +44,7 @@ export default async function Page() {
 function generatePage(list: ChecksTable[], pageClass: string, hasTotal = false, totalSum = 0, totalNds = 0) {
   return (<div className={clsx({
     pageClass: true,
-    'font-print bg-white block my-0 mx-auto mb-[0.5cm] shadow-xl w-[29.7cm] h-[21cm] bg-center bg-contain relative': true,
+    'font-print bg-white block my-0 mx-auto w-[29.7cm] h-[21cm] bg-center bg-contain relative': true,
     "bg-[url('/bg2.png')]": pageClass === 'another-page',
     "bg-[url('/bg1.png')]": pageClass === 'first-page'
   })}>

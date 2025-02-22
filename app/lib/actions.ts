@@ -235,3 +235,42 @@ export async function addCompanyFromService(params: ProverkachekaParams) {
 
   redirect('/checks/add/qrcode');
 }
+
+export async function deleteDatabase() {
+  try {
+    await sql`
+      TRUNCATE TABLE checks,companies;
+    `;
+  } catch (error) {
+    console.error('Database Error: ', error);
+    throw new Error('Database Error: Failed to truncate table(s).');
+  }
+
+  redirect('/checks');
+}
+
+export async function deleteAllChecks() {
+  try {
+    await sql`
+      TRUNCATE TABLE checks;
+    `;
+  } catch (error) {
+    console.error('Database Error: ', error);
+    throw new Error('Database Error: Failed to truncate table(s).');
+  }
+
+  redirect('/checks');
+}
+
+export async function deleteAllCompanies() {
+  try {
+    await sql`
+      TRUNCATE TABLE companies;
+    `;
+  } catch (error) {
+    console.error('Database Error: ', error);
+    throw new Error('Database Error: Failed to truncate table(s).');
+  }
+
+  redirect('/companies');
+}

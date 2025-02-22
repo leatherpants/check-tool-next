@@ -2,6 +2,8 @@ import Link from "next/link";
 import CompaniesList from "@/app/ui/companies/CompaniesList";
 import { PrimaryButton } from "@/app/ui/PrimaryButton";
 import { SecondaryButton } from "@/app/ui/SecondaryButton";
+import { deleteAllCompanies } from "@/app/lib/actions";
+import { DangerButton } from "@/app/ui/DangerButton";
 
 export default function Page() {
 
@@ -14,6 +16,9 @@ export default function Page() {
         <SecondaryButton>
           <Link href='/companies/add'>Add</Link>
         </SecondaryButton>
+        <form action={deleteAllCompanies} >
+          <DangerButton type="submit">Delete All</DangerButton>
+        </form>
       </div>
 
       <div>

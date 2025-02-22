@@ -6,6 +6,8 @@ import { PageProps } from "@/.next/types/app/(with-layout)/checks/page";
 import Search from "@/app/ui/checks/Search";
 import { PrimaryButton } from "@/app/ui/PrimaryButton";
 import { SecondaryButton } from "@/app/ui/SecondaryButton";
+import { DangerButton } from "@/app/ui/DangerButton";
+import { deleteAllChecks } from "@/app/lib/actions";
 
 export default async function Page({ searchParams }: PageProps) {
 
@@ -27,6 +29,9 @@ export default async function Page({ searchParams }: PageProps) {
           <SecondaryButton>
             <Link href='/checks/add' >Add</Link>
           </SecondaryButton>
+          <form action={deleteAllChecks} >
+            <DangerButton type="submit">Delete All</DangerButton>
+          </form>
         </div>
       </div>
       <div className="">

@@ -155,6 +155,7 @@ export async function fetchCheckFromService(params: ProverkachekaParams): Promis
     sum: data.data.json.totalSum,
     nds20: data.data.json.nds18 ?? 0,
     nds10: data.data.json.nds10 ?? 0,
+    fd: data.data.json.fiscalDocumentNumber ?? 0,
   }
 }
 

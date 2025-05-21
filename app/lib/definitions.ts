@@ -8,6 +8,7 @@ export type ChecksTable = {
   nds20: number;
   company_id: string;
   company_name: string;
+  fd: number;
 }
 
 export type ChecksTableWithoutId = Omit<ChecksTable, 'id'>;

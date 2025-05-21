@@ -34,7 +34,7 @@ export async function authenticate(
 
 export async function addCheckFromService(params: ProverkachekaParams) {
 
-  const { company_type, date, number, company_id, company_name, sum, nds10, nds20 } =
+  const { company_type, date, number, company_id, company_name, sum, nds10, nds20, fd } =
     await fetchCheckFromService(params);
 
   const dateString = date.toISOString().split('T')[0];
@@ -42,8 +42,8 @@ export async function addCheckFromService(params: ProverkachekaParams) {
   // console.log(company_id);
   try {
     await sql`
-      INSERT INTO checks (company_type, date, number, company_id, company_name, sum, nds10, nds20)
-      VALUES (${company_type}, ${dateString}, ${number}, ${company_id}, ${company_name}, ${sum}, ${nds10}, ${nds20})
+      INSERT INTO checks (company_type, date, number, company_id, company_name, sum, nds10, nds20, fd)
+      VALUES (${company_type}, ${dateString}, ${number}, ${company_id}, ${company_name}, ${sum}, ${nds10}, ${nds20}, ${fd})
     `;
   } catch (error) {
     console.error('Database Error: ', error);
